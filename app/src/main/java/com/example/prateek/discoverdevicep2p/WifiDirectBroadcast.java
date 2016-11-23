@@ -46,7 +46,6 @@ public class WifiDirectBroadcast extends BroadcastReceiver {
             }
 
         }else if(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)){
-
             //Code to be added
 
         }else if(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)){
