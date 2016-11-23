@@ -53,7 +53,6 @@ public class WifiDirectBroadcast extends BroadcastReceiver {
                     .findFragmentById(R.id.);
 */
         }
-
     }
 
 }
