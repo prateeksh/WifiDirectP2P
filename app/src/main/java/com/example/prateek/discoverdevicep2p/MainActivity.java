@@ -92,25 +92,31 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.v("P2P", "discovering device");
-                mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
-
-                    @Override
-                    public void onSuccess() {
-                        Log.v("Success", "Device discovered");
-                        setData(true);
-                        Log.v("LOG", "SECOND");
-                    }
-
-                    @Override
-                    public void onFailure(int reason) {
-                        Log.v("p2p", "discovering unsuccesfull");
-                        setData(false);
-                    }
-                });
+                listview.setVisibility(ListView.INVISIBLE);
+                searchDevices();
+                peers.clear();
             }
         });
     }
 
+
+    private void searchDevices(){
+        mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+
+            @Override
+            public void onSuccess() {
+                Log.v("Success", "Device discovered");
+                setData(true);
+                Log.v("LOG", "SECOND");
+            }
+
+            @Override
+            public void onFailure(int reason) {
+                Log.v("p2p", "discovering unsuccesfull");
+                setData(false);
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -153,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
                     peers.clear();
                     peers.addAll(peerList.getDeviceList());
-                    Log.v("LOG", "Devices List Found" + peerList.getDeviceList());
+                    Log.v("LOG", "Devices List Found" + peerList.getDeviceList().size());
                     wifip2padapter.notifyDataSetChanged();
 
                     if (peers.size() == 0) {
