@@ -7,12 +7,14 @@
         android:id="@+id/device_name"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:gravity="center_vertical" />
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/padding_left"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/device_details"
+        android:paddingLeft="@dimen/padding_left"
          />
 
 </LinearLayout>

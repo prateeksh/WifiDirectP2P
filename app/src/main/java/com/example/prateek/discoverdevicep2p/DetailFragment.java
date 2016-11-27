@@ -38,6 +38,7 @@ public class DetailFragment extends Fragment implements WifiP2pManager.Connectio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        rootView = inflater.inflate(R.layout.connect_detail, null);
+
         rootView.findViewById(R.id.connect).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
