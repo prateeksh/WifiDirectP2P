@@ -6,4 +6,10 @@
     <string name="discover">Search For Devices</string>
     <string name="clickbutton">Click on the button to search for devices</string>
     <string name="list_of_peers">List of Devices available</string>
+ <!--   <string name="enable_p2p_button">P2P On/Off</string>
+    <string name="discover_peers_button">Discover</string>-->
+    <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
+    <string name="connectDevice">Connect</string>
+    <string name="disconnectDevice">Disconnect</string>
+    <string name="empty">Nothing</string>
 </resources>

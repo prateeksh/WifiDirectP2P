@@ -12,35 +12,20 @@
     tools:showIn="@layout/activity_main"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <fragment
+        class="com.example.prateek.discoverdevicep2p.DeviceListFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/clickbutton"
-        android:id="@+id/text"
-        android:padding="@dimen/padtext"/>
+        android:id="@+id/fragment_list"/>
 
-    <Button
-        android:layout_width="wrap_content"
+    <fragment
+        class="com.example.prateek.discoverdevicep2p.MainActivityFragment"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/discover"
-        android:text="@string/discover"
-        android:layout_below="@id/text"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text2"
-        android:text="@string/list_of_peers"
-        android:padding="@dimen/padtext"
-        android:layout_below="@id/discover"/>
-
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/peerslist"
-        android:layout_below="@id/text2"/>
-
-
-
+        android:id="@+id/fragment_detail"/>
+    </LinearLayout>
 </LinearLayout>
