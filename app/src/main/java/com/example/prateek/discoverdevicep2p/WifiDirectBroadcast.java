@@ -61,7 +61,7 @@ public class WifiDirectBroadcast extends BroadcastReceiver {
             if(networkInfo.isConnected()){
                 DetailFragment fragment = (DetailFragment) mAcitivity
                         .getSupportFragmentManager().findFragmentById(R.id.fragment_detail);
-
+                mManager.requestConnectionInfo(mChannel, (WifiP2pManager.ConnectionInfoListener) fragment);
             }
             else
             {

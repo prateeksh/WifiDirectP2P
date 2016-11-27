@@ -5,8 +5,10 @@ import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pInfo;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,7 @@ import android.widget.TextView;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements WifiP2pManager.ConnectionInfoListener {
 
     private WifiP2pDevice device;
     private WifiP2pInfo info;
@@ -24,6 +26,8 @@ public class DetailFragment extends Fragment {
 
     public DetailFragment() {
     }
+
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
@@ -58,6 +62,32 @@ public class DetailFragment extends Fragment {
                 }
         );
         return rootView;
+    }
+
+    @Override
+    public void onConnectionInfoAvailable(final WifiP2pInfo info){
+        if(progressDialog !=null && progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+        this.info = info;
+        this.getView().setVisibility(View.VISIBLE);
+        TextView textView = (TextView) rootView.findViewById(R.id.group_owner);
+        textView.setText(getResources().getString(R.string.group_owner)
+        + ((info.isGroupOwner == true) ? getResources().getString(R.string.yes)
+        :getResources().getString(R.string.no)));
+
+        /*textView = (TextView) rootView.findViewById(R.id.device_info);
+        textView.setText("Group Owner IP - " + info.groupOwnerAddress.getHostAddress());
+*/
+
+        if (info.groupFormed && info.isGroupOwner) {
+            Log.v(MainActivity.TAG, "Group Formed");
+        } else if (info.groupFormed) {
+            Log.v(MainActivity.TAG, "Group not Formed");
+        }
+
+        // hide the connect button
+        rootView.findViewById(R.id.connect).setVisibility(View.GONE);
     }
 
     public void showDetails(WifiP2pDevice device){

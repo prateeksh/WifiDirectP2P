@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements DeviceListFragment.DeviceActionListener {
+public class MainActivity extends AppCompatActivity implements DeviceListFragment.DeviceActionListener, WifiP2pManager.ChannelListener{
 
     private final IntentFilter intentFilter = new IntentFilter();
 
@@ -25,14 +25,14 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
     WifiP2pManager mManager;
     WifiP2pManager.Channel mChannel;
     BroadcastReceiver mReceiver = null;
-
+    private boolean retryChannel = false;
 
     private boolean isWifiP2pEnabled = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.fragment_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         DeviceListFragment fragmentList = (DeviceListFragment) getFragmentManager()
                 .findFragmentById(R.id.fragment_list);
 
-        DetailFragment fragment = (DetailFragment) getFragmentManager()
-                .findFragmentById(R.id.fragment_detail);
+        DetailFragment fragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_detail);
         if (fragmentList != null) {
             fragmentList.clearPeers();
         }
@@ -128,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
 
     public void setData(boolean isTrue) {
         if (isTrue) {
-            Toast.makeText(this, "Divice Found", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Divice Found ", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(this, "Device Cannot Be Found", Toast.LENGTH_SHORT).show();
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
             @Override
             public void onSuccess() {
-
+                Toast.makeText(MainActivity.this, "Connecting...", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -196,6 +196,20 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         });
     }
 
+    @Override
+    public void onChannelDisconnected() {
+        // we will try once more
+        if (mManager != null && !retryChannel) {
+            Toast.makeText(this, "Channel lost. Trying again", Toast.LENGTH_LONG).show();
+            resetData();
+            retryChannel = true;
+            mManager.initialize(this, getMainLooper(), this);
+        } else {
+            Toast.makeText(this,
+                    "Severe! Channel is probably lost premanently. Try Disable/Re-Enable P2P.",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     public void cancelDisconnect() {
 
@@ -232,8 +246,4 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         }
 
     }
-   /* @Override
-    public void onChannelDisconnect(){
-        if (mManager != null && !retry)
-    }*/
 }

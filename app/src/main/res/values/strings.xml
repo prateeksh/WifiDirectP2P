@@ -12,4 +12,7 @@
     <string name="connectDevice">Connect</string>
     <string name="disconnectDevice">Disconnect</string>
     <string name="empty">Nothing</string>
+    <string name="group_owner">Group Owner</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
