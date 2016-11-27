@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
 
     }
 
-
     public boolean searchDevices(){
 
         if(!isWifiP2pEnabled){
