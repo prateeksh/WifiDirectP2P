@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
         if (fragment != null) {
             fragment.resetViews();
         }
-
     }
 
     public boolean searchDevices(){
