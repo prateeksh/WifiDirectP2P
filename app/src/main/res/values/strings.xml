@@ -11,6 +11,7 @@
     <string name="p2p_off_warning">Enable P2P from action bar button above or system settings</string>
     <string name="connectDevice">Connect</string>
     <string name="disconnectDevice">Disconnect</string>
+    <string name="send">Send</string>
     <string name="empty">Nothing</string>
     <string name="group_owner">Group Owner</string>
     <string name="yes">Yes</string>

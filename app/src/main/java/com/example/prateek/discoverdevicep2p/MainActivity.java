@@ -6,6 +6,7 @@ import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
     WifiP2pManager.Channel mChannel;
     BroadcastReceiver mReceiver = null;
     private boolean retryChannel = false;
+
+    private boolean isConnected = false;
+    private AsyncTask<Void,Void,String> mSendDataAsyncTask;
 
     private boolean isWifiP2pEnabled = false;
 
@@ -169,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements DeviceListFragmen
             @Override
             public void onSuccess() {
                 Toast.makeText(MainActivity.this, "Connecting...", Toast.LENGTH_SHORT).show();
+                isConnected = true;
             }
 
             @Override
